@@ -1,0 +1,31 @@
+name: Gerar APK JARVIS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar arquivos
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Verificar projeto
+        run: |
+          echo "Arquivos do repositório:"
+          find . -maxdepth 3 -type f
+
+      - name: Preparar artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: arquivos-JARVIS
+          path: |
+            .
+          if-no-files-found: error
